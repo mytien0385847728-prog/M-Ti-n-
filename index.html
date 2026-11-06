@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#3157c8">
+<title>Kế hoạch học tập | Lê Thị Mỹ Tiền</title>
+<style>
+:root{--blue:#3157c8;--blue2:#6385f0;--ink:#1b2540;--muted:#68748d;--bg:#f4f6fc;--card:#fff;--line:#e5eaf4;--green:#159879}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(125deg,#243f9d,#6385f0);color:white;padding:34px 18px 54px}
+.wrap{max-width:1080px;margin:auto;padding:0 18px}
+.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;font-weight:700}
+h1{font-size:clamp(27px,5vw,40px);line-height:1.15;margin:8px 0}
+header p{margin:8px 0 0;opacity:.92}
+main{margin-top:-26px;padding-bottom:38px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:20px;margin-bottom:17px;box-shadow:0 7px 24px #263b6810}
+h2{font-size:20px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+label.field{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+input,select,textarea{width:100%;border:1px solid #ccd5e6;border-radius:10px;padding:11px 12px;font:inherit;color:var(--ink);background:#fff}
+input:focus,select:focus,textarea:focus{outline:3px solid #3157c833;border-color:var(--blue)}
+button{border:0;border-radius:10px;background:var(--blue);color:#fff;padding:11px 15px;font:700 14px inherit;cursor:pointer}
+button.light{background:#edf1ff;color:var(--blue)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:17px}
+.stat{text-align:center;background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px}
+.stat strong{display:block;font-size:26px;color:var(--blue)}.stat span{font-size:12px;color:var(--muted)}
+.progress{height:11px;border-radius:20px;background:#e9edf6;overflow:hidden}.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),#20b99a);transition:width .2s}
+.week{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}
+.day{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff}
+.day h3{font-size:16px;margin:0 0 4px}.day p{font-size:12px;color:var(--muted);margin:0 0 9px}
+.pill{display:inline-block;font-size:11px;font-weight:700;color:#2754bd;background:#edf1ff;border-radius:30px;padding:3px 9px;margin-bottom:8px}
+.task{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+.task input{width:17px;height:17px;margin:2px 0 0;accent-color:var(--green);flex:0 0 auto}
+.task span{flex:1}.task.done span{text-decoration:line-through;color:#8993a6}
+.hint{font-size:13px;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;padding:0 15px 25px}
+@media(max-width:520px){.stats{gap:7px}.stat{padding:10px 5px}.stat strong{font-size:22px}.card{padding:16px}}
+@media print{body{background:#fff}header{padding:20px}.card,.day,.stat{box-shadow:none;break-inside:avoid}button{display:none}main{margin-top:0}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow">Sổ tay học tập cá nhân</div>
+<h1>Kế hoạch học tập</h1>
+<p>Học tập chủ động · Sắp xếp hợp lý · Tiến bộ mỗi ngày</p>
+</div></header>
+<main class="wrap">
+<section class="card">
+<h2>👩‍🎓 Thông tin học sinh</h2>
+<div class="grid">
+<div><label class="field" for="student">Họ và tên</label><input id="student" value="Lê Thị Mỹ Tiền"></div>
+<div><label class="field" for="className">Lớp</label><input id="className" placeholder="Nhập lớp của bạn"></div>
+<div><label class="field" for="school">Trường</label><input id="school" value="THPT Lê Duẩn"></div>
+<div><label class="field" for="term">Năm học</label><input id="term" value="2026 – 2027"></div>
+</div>
+<div class="actions"><button id="saveProfile">Lưu thông tin</button><button class="light" id="print">In / Lưu PDF</button></div>
+<p class="hint" id="status" aria-live="polite">Thông tin và tiến độ được lưu trên trình duyệt của thiết bị này.</p>
+</section>
+
+<section class="card">
+<h2>🎯 Mục tiêu học tập</h2>
+<div class="grid">
+<div><label class="field" for="goal">Mục tiêu chính</label><input id="goal" value="Hoàn thành bài tập và nắm vững kiến thức trên lớp"></div>
+<div><label class="field" for="daily">Thời gian tự học mỗi ngày</label><select id="daily"><option>30 phút</option><option selected>60 phút</option><option>90 phút</option><option>120 phút</option></select></div>
+<div><label class="field" for="priority">Môn cần ưu tiên</label><input id="priority" placeholder="Ví dụ: Toán, Tiếng Anh"></div>
+</div>
+<div class="actions"><button id="saveGoals">Lưu mục tiêu</button></div>
+</section>
+
+<section class="stats">
+<div class="stat"><strong id="doneCount">0/21</strong><span>Nhiệm vụ hoàn thành</span></div>
+<div class="stat"><strong id="percent">0%</strong><span>Tiến độ tuần</span></div>
+<div class="stat"><strong>7</strong><span>Ngày có kế hoạch</span></div>
+</section>
+<section class="card">
+<h2>📈 Tiến độ tuần này</h2><div class="progress"><div id="bar"></div></div>
+<p class="hint">Đánh dấu vào ô vuông khi hoàn thành từng nhiệm vụ.</p>
+</section>
+
+<section class="card">
+<h2>🗓️ Thời khóa biểu tự học 7 ngày</h2>
+<div class="week" id="week">
+<div class="day"><h3>Thứ 2 – Toán</h3><span class="pill">Tư duy & luyện tập</span><p>Ôn kiến thức và rèn kỹ năng giải bài.</p>
+<label class="task"><input type="checkbox"><span>Ôn lại lý thuyết và công thức</span></label><label class="task"><input type="checkbox"><span>Làm bài tập trong sách/vở</span></label><label class="task"><input type="checkbox"><span>Ghi lại câu hỏi chưa hiểu</span></label></div>
+<div class="day"><h3>Thứ 3 – Ngữ văn</h3><span class="pill">Đọc & viết</span><p>Phát triển khả năng cảm thụ và diễn đạt.</p>
+<label class="task"><input type="checkbox"><span>Đọc lại tác phẩm hoặc văn bản</span></label><label class="task"><input type="checkbox"><span>Lập dàn ý cho một đề bài</span></label><label class="task"><input type="checkbox"><span>Học và ghi nhớ kiến thức trọng tâm</span></label></div>
+<div class="day"><h3>Thứ 4 – Tiếng Anh</h3><span class="pill">Language skills</span><p>Luyện từ vựng, ngữ pháp và giao tiếp.</p>
+<label class="task"><input type="checkbox"><span>Học 10 từ vựng mới</span></label><label class="task"><input type="checkbox"><span>Ôn một chủ điểm ngữ pháp</span></label><label class="task"><input type="checkbox"><span>Nghe hoặc đọc một đoạn tiếng Anh</span></label></div>
+<div class="day"><h3>Thứ 5 – Khoa học</h3><span class="pill">Hiểu bản chất</span><p>Ôn các môn khoa học theo lịch trên lớp.</p>
+<label class="task"><input type="checkbox"><span>Ôn bài Sinh học / Vật lý / Hóa học</span></label><label class="task"><input type="checkbox"><span>Vẽ sơ đồ hoặc ghi chú kiến thức</span></label><label class="task"><input type="checkbox"><span>Làm bài tập vận dụng</span></label></div>
+<div class="day"><h3>Thứ 6 – Môn còn yếu</h3><span class="pill">Củng cố</span><p>Dành thời gian cho nội dung cần cải thiện.</p>
+<label class="task"><input type="checkbox"><span>Chọn một nội dung chưa nắm vững</span></label><label class="task"><input type="checkbox"><span>Xem lại ví dụ và hướng dẫn</span></label><label class="task"><input type="checkbox"><span>Tự làm bài tương tự</span></label></div>
+<div class="day"><h3>Thứ 7 – Hoàn thành bài tập</h3><span class="pill">Thực hành</span><p>Giải quyết bài tập và nhiệm vụ trong tuần.</p>
+<label class="task"><input type="checkbox"><span>Kiểm tra bài tập các môn</span></label><label class="task"><input type="checkbox"><span>Hoàn thành bài còn thiếu</span></label><label class="task"><input type="checkbox"><span>Chuẩn bị bài cho tuần mới</span></label></div>
+<div class="day"><h3>Chủ nhật – Tổng kết</h3><span class="pill">Ôn tập & nghỉ ngơi</span><p>Nhìn lại tiến độ và chuẩn bị tuần tiếp theo.</p>
+<label class="task"><input type="checkbox"><span>Ôn lại kiến thức quan trọng</span></label><label class="task"><input type="checkbox"><span>Tự kiểm tra những nội dung đã học</span></label><label class="task"><input type="checkbox"><span>Lập mục tiêu cho tuần mới</span></label></div>
+</div>
+</section>
+
+<section class="card">
+<h2>📝 Nhật ký học tập</h2>
+<label class="field" for="journal">Điều đã học được, việc cần cải thiện và ghi chú</label>
+<textarea id="journal" rows="5" placeholder="Hôm nay mình đã... Ngày mai mình sẽ..."></textarea>
+<div class="actions"><button id="saveJournal">Lưu nhật ký</button><button class="light" id="reset">Đặt lại dấu hoàn thành</button></div>
+</section>
+</main>
+<footer>Thiết kế dành riêng cho Lê Thị Mỹ Tiền · Kiên trì mỗi ngày để tiến bộ hơn 🌱</footer>
+<script>
+const $=id=>document.getElementById(id);
+const checks=[...document.querySelectorAll('.task input')];
+function update(){
+ const n=checks.filter(c=>c.checked).length,p=Math.round(n/checks.length*100);
+ $('doneCount').textContent=`${n}/${checks.length}`;$('percent').textContent=p+'%';$('bar').style.width=p+'%';
+ checks.forEach(c=>c.closest('.task').classList.toggle('done',c.checked));
+ localStorage.setItem('mytien_checks',JSON.stringify(checks.map(c=>c.checked)));
+}
+function saveFields(ids){ids.forEach(id=>localStorage.setItem('mytien_'+id,$(id).value));$('status').textContent='Đã lưu thông tin thành công!';}
+function load(){
+ ['student','className','school','term','goal','daily','priority'].forEach(id=>{const v=localStorage.getItem('mytien_'+id);if(v!==null)$(id).value=v;});
+ $('journal').value=localStorage.getItem('mytien_journal')||'';
+ try{const a=JSON.parse(localStorage.getItem('mytien_checks')||'[]');checks.forEach((c,i)=>c.checked=!!a[i]);}catch(e){}
+ update();
+}
+checks.forEach(c=>c.addEventListener('change',update));
+$('saveProfile').onclick=()=>saveFields(['student','className','school','term']);
+$('saveGoals').onclick=()=>saveFields(['goal','daily','priority']);
+$('saveJournal').onclick=()=>{localStorage.setItem('mytien_journal',$('journal').value);$('status').textContent='Đã lưu nhật ký học tập!';};
+$('print').onclick=()=>window.print();
+$('reset').onclick=()=>{if(confirm('Bạn có muốn bỏ đánh dấu toàn bộ nhiệm vụ?')){checks.forEach(c=>c.checked=false);update();}};
+load();
+</script>
+</body>
+</html>
